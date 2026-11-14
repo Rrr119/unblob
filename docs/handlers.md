@@ -89,8 +89,8 @@
     | [`TAR (UNIX)`](#tar-unix) | ARCHIVE | :octicons-check-16: |
     | [`TAR (USTAR)`](#tar-ustar) | ARCHIVE | :octicons-check-16: |
     | [`TESLA WALL CONNECTOR SBFH`](#tesla-wall-connector-sbfh) | ARCHIVE | :octicons-check-16: |
-    | [`UBI`](#ubi) | FILESYSTEM | :octicons-check-16: |
-    | [`UBIFS`](#ubifs) | FILESYSTEM | :octicons-check-16: |
+    | [`UBI`](#ubi) | FILESYSTEM | :octicons-alert-fill-12: |
+    | [`UBIFS`](#ubifs) | FILESYSTEM | :octicons-alert-fill-12: |
     | [`UFS1`](#ufs1) | FILESYSTEM | :octicons-check-16: |
     | [`UFS2`](#ufs2) | FILESYSTEM | :octicons-check-16: |
     | [`UZIP`](#uzip) | COMPRESSION | :octicons-check-16: |
@@ -1598,11 +1598,11 @@
         - [Exploiting the Tesla Wall Connector](https://www.synacktiv.com/en/publications/exploiting-the-tesla-wall-connector-from-its-charge-port-connector.html){ target="_blank" }
 ## UBI
 
-!!! success "Fully supported"
+!!! warning "Partially supported"
 
     === "Description"
 
-        UBI (Unsorted Block Image) is a volume management system for raw flash devices, providing wear leveling and bad block management. It operates as a layer between the MTD subsystem and higher-level filesystems like UBIFS.
+        UBI (Unsorted Block Image) is a volume management system for raw flash devices, providing wear leveling and bad block management. It operates as a layer between the MTD subsystem and higher-level filesystems like UBIFS. The handler walks the eraseblocks of the image, skipping bad eraseblocks with corrupted erase counter headers, and carves out the whole image. Volumes are extracted with ubireader into UBIFS images, which unblob then extracts recursively.
 
         ---
 
@@ -1613,13 +1613,19 @@
 
         - [UBI Documentation](https://www.kernel.org/doc/html/latest/driver-api/ubi.html){ target="_blank" }
         - [UBI Wikipedia](https://en.wikipedia.org/wiki/UBIFS#UBI){ target="_blank" }
+        - [UBI header definitions in the Linux kernel](https://github.com/torvalds/linux/blob/v6.12/drivers/mtd/ubi/ubi-media.h){ target="_blank" }
+
+    === "Limitations"
+
+        - The PEB size is not stored in the image, it is guessed from the intervals between eraseblock headers.
+        - Eraseblocks are validated with their header CRC, images with systematically corrupted eraseblock headers are not recognized.
 ## UBIFS
 
-!!! success "Fully supported"
+!!! warning "Partially supported"
 
     === "Description"
 
-        UBIFS (Unsorted Block Image File System) is a flash file system designed for raw flash memory, providing wear leveling, error correction, and power failure resilience. It operates on top of UBI volumes, which manage flash blocks on raw NAND or NOR flash devices.
+        UBIFS (Unsorted Block Image File System) is a flash file system designed for raw flash memory, providing wear leveling, error correction, and power failure resilience. It operates on top of UBI volumes, which manage flash blocks on raw NAND or NOR flash devices. The handler matches the UBIFS superblock node, validates its fields and covers the whole filesystem (LEB size times LEB count). Files are extracted with ubireader.
 
         ---
 
@@ -1630,6 +1636,11 @@
 
         - [UBIFS Documentation](https://www.kernel.org/doc/html/latest/filesystems/ubifs.html){ target="_blank" }
         - [UBIFS Wikipedia](https://en.wikipedia.org/wiki/UBIFS){ target="_blank" }
+        - [UBIFS node definitions in the Linux kernel](https://github.com/torvalds/linux/blob/v6.12/fs/ubifs/ubifs-media.h){ target="_blank" }
+
+    === "Limitations"
+
+        - Only images starting with a superblock node are recognized.
 ## ufs1
 
 !!! success "Fully supported"

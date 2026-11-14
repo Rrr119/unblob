@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:626382d49aa29cd0e9688b64169d98f2403d08484c8e79241dd5e36c60ec8b5b
-size 280
+!<arch>
+durian1.txt/    0           0     0     644     8         `
+durian1
+durian2.txt/    0           0     0     644     8         `
+durian2
+durian3.txt/    0           0     0     644     8         `
+durian3
+durian4.txt/    0           0     0     644     8         `
+durian4

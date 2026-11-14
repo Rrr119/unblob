@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1d74d5cbf166638434c696563f88b13db1438d34f8e58675ae6bcf337edbcf9c
-size 298
+!<arch>
+//                                              86        `
+a_very_long_name_for_the_gnu_type_header_so_it_can_overflow_the_standard_name_length/
+#1/84           1364081456  1000  100   100644  84        `
+a_very_long_name_for_the_gnu_type_header_so_it_can_overflow_the_standard_name_length
